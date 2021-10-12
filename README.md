@@ -4,7 +4,7 @@ Terraform backed Minecraft server for aws housed in spot fleet.
 
  ## Overview
 
- * This is a completely self configured self deploying ts3 server for aws cloud
+ * This is a completely self configured self deploying minecraft server for aws cloud
 
  ## Prerequisites
  * A basic knowledge of terraform , how to apply and run it.
