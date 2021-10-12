@@ -56,8 +56,8 @@ variable "instance_ami_id" {
   default     = "ami-05c424d59413a2876"
 }
 
-variable "minecraft_version" {
+variable "minecraft_version_selector" {
   description = "Version of Minecraft Server files to download"
-  type        = string
-  default     = "1.17.1"
+  type        = map(any)
+  default     = { "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar" }
 }

@@ -57,7 +57,8 @@ resource "aws_eip" "elastic_ip" {
 data "template_file" "user_data" {
   template = file("templates/mc-init.tpl")
   vars = {
-    instance_hostname = var.instance_hostname
+    instance_hostname     = var.instance_hostname
     minecraft_data_bucket = aws_s3_bucket.minecraft_data.bucket
+    minecraft_version     = var.minecraft_version_selector["1.17.1"]
   }
 }

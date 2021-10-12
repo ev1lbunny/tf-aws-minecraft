@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install java-1.8.0 wget awscli jq -y
+yum install java-1.8.0 wget awscli screen jq -y
 yum remove java-1.7.0-openjdk -y
 yum upgrade -y
 
@@ -16,9 +16,14 @@ aws s3 sync s3://${minecraft_data_bucket}} /home/minecraft/current/
 
 cd /home/minecraft/current
 
+wget ${minecraft_version_download_link}
 
+screen
 
-wget "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar"
+cat >eula.txt<<EULA
+#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
+#Tue Jan 27 21:40:00 UTC 2015
+eula=true
+EULA
 
-sudo java -Xmx1024M -jar server.jar nogui 
-
+sudo java -Xmx1024M -jar server.jar nogui

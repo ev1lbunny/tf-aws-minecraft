@@ -11,7 +11,7 @@ resource "aws_security_group" "security_group" {
   }
 
   ingress {
-    description = "Open Minecraft Server Port"
+    description = "Open Ingress on Minecraft Server Port"
     from_port   = 25565
     to_port     = 25565
     protocol    = "tcp"
@@ -19,6 +19,7 @@ resource "aws_security_group" "security_group" {
   }
 
   egress {
+    description = "Open Egress for Minecraft Server"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"

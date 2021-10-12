@@ -4,50 +4,58 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14.0 |
-| aws | ~> 3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.0 |
-| template | n/a |
-| tls | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 ## Modules
 
-No Modules.
+No modules.
 
 ## Resources
 
-| Name |
-|------|
-| [aws_eip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) |
-| [aws_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) |
-| [aws_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) |
-| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
-| [template_file](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) |
-| [tls_private_key](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) |
+| Name | Type |
+|------|------|
+| [aws_eip.elastic_ip](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
+| [aws_instance.ec2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_key_pair.generated_server_keypair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_kms_key.minecraft_bucket_encrypt_at_rest](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_s3_bucket.minecraft_data](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket.minecraft_data_log_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_object.remotestate_folder](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
+| [aws_security_group.security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [random_id.state_bucket_rand](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [tls_private_key.key_pair_config](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
+| [aws_ami.AL2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [template_file.user_data](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_tags | Additional resource tags | `map(string)` | <pre>{<br>  "Name": "Teamspeak 3 Server"<br>}</pre> | no |
-| aws\_credentials\_profile | High level profile name that the terraform uses for aws access to create new role/policy/user for pihole deployment | `string` | n/a | yes |
-| aws\_region | Region of aws to use | `string` | `"eu-west-2"` | no |
-| ingress\_access\_ip\_address | Ip address that you will access the ts3server from. All other access will be locked. | `string` | n/a | yes |
-| instance\_ami\_id | Requested Instance Ami Image Id | `string` | `"ami-05c424d59413a2876"` | no |
-| instance\_hostname | Requested Instance Hostname | `string` | `"aws-ts3-server"` | no |
-| instance\_type | Requested Instance Type | `string` | `"t3.nano"` | no |
-| instance\_volume\_size | Requested Instance Volume Size | `number` | `8` | no |
-| key\_pair\_name | Name to give the generated keypair that will be associated with the ts3 server ec2 isntance for ssh access | `string` | `"server-keypair"` | no |
-| prefix\_identifier | Prefix added to all resources in aws to differentiate between types of infra setup | `string` | `"ts3-"` | no |
+| <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | Additional resource tags | `map(string)` | <pre>{<br>  "Name": "Minecraft"<br>}</pre> | no |
+| <a name="input_aws_credentials_profile"></a> [aws\_credentials\_profile](#input\_aws\_credentials\_profile) | High level profile name that the terraform uses for aws access to create new role/policy/user for pihole deployment | `string` | n/a | yes |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region of aws to use | `string` | `"eu-west-2"` | no |
+| <a name="input_ingress_access_ip_address"></a> [ingress\_access\_ip\_address](#input\_ingress\_access\_ip\_address) | Ip address that you will access the ts3server from. All other access will be locked. | `string` | n/a | yes |
+| <a name="input_instance_ami_id"></a> [instance\_ami\_id](#input\_instance\_ami\_id) | Requested Instance Ami Image Id | `string` | `"ami-05c424d59413a2876"` | no |
+| <a name="input_instance_hostname"></a> [instance\_hostname](#input\_instance\_hostname) | Requested Instance Hostname | `string` | `"aws-minecraft-server"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t3.micro"` | no |
+| <a name="input_instance_volume_size"></a> [instance\_volume\_size](#input\_instance\_volume\_size) | Requested Instance Volume Size | `number` | `8` | no |
+| <a name="input_key_pair_name"></a> [key\_pair\_name](#input\_key\_pair\_name) | Name to give the generated keypair that will be associated with the ts3 server ec2 isntance for ssh access | `string` | `"server-keypair"` | no |
+| <a name="input_minecraft_version_selector"></a> [minecraft\_version\_selector](#input\_minecraft\_version\_selector) | Version of Minecraft Server files to download | `map(any)` | <pre>{<br>  "1.17.1": "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar"<br>}</pre> | no |
+| <a name="input_prefix_identifier"></a> [prefix\_identifier](#input\_prefix\_identifier) | Prefix added to all resources in aws to differentiate between types of infra setup | `string` | `"mc-"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| private\_generated\_key | The generated private key used to access the joint ec2 instances via ssh |
+| <a name="output_private_generated_key"></a> [private\_generated\_key](#output\_private\_generated\_key) | The generated private key used to access the joint ec2 instances via ssh |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
