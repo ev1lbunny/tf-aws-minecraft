@@ -54,5 +54,5 @@ resource "aws_s3_bucket" "minecraft_data_log_bucket" {
 
 resource "aws_s3_bucket_object" "remotestate_folder" {
   bucket = aws_s3_bucket.minecraft_data.id
-  key    = "terraform-aws/minecraft_server_data/"
+  key    = "minecraft/minecraft_server_data/"
 }

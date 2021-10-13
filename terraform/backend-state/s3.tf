@@ -54,5 +54,5 @@ resource "aws_s3_bucket" "tf_state_log_bucket" {
 
 resource "aws_s3_bucket_object" "remotestate_folder" {
   bucket = aws_s3_bucket.terraform_remotestate.id
-  key    = "terraform-aws/ts3_server/"
+  key    = "terraform-aws/minecraft_server/"
 }

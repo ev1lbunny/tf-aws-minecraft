@@ -5,7 +5,7 @@ variable "aws_region" {
 }
 
 variable "aws_credentials_profile" {
-  description = "High level profile name that the terraform uses for aws access to create new role/policy/user for ts3server deployment"
+  description = "High level profile name that the terraform uses for aws access to create new role/policy/user for minecraft server deployment"
   type        = string
 }
 
