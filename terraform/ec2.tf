@@ -60,7 +60,7 @@ data "template_file" "user_data" {
   template = file("templates/mc-init.tpl")
   vars = {
     instance_hostname     = var.instance_hostname
-    minecraft_data_bucket = aws_s3_bucket.minecraft_data.bucket
+    minecraft_data_bucket_id = aws_s3_bucket.minecraft_data.id
     minecraft_version_download_link     = var.minecraft_version_selector["1.17.1"]
   }
 }

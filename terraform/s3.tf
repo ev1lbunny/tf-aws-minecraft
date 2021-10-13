@@ -34,7 +34,7 @@ resource "aws_s3_bucket" "minecraft_data" {
   }
 
   tags = {
-    Name = "Terraform s3 State Bucket"
+    Name = "Terraform minecraft server Bucket"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "minecraft_data_log_bucket" {
   }
 }
 
-resource "aws_s3_bucket_object" "remotestate_folder" {
+resource "aws_s3_bucket_object" "world_data_folder" {
   bucket = aws_s3_bucket.minecraft_data.id
   key    = "minecraft/minecraft_server_data/"
 }
