@@ -39,7 +39,7 @@ resource "aws_s3_bucket" "minecraft_data" {
 }
 
 resource "aws_s3_bucket" "minecraft_data_log_bucket" {
-  bucket = "minecraft-data-log-bucket"
+  bucket = "minecraft-server-world-data-log-bucket"
   acl    = "log-delivery-write"
 
   server_side_encryption_configuration {
