@@ -40,7 +40,8 @@ resource "aws_instance" "ec2" {
       var.additional_tags,
     )
   }
-  user_data = data.template_file.user_data.rendered
+  iam_instance_profile = aws_iam_instance_profile.minecraft_s3_access_profile.name
+  user_data            = data.template_file.user_data.rendered
   tags = merge(
     {},
     var.additional_tags,
@@ -59,8 +60,8 @@ resource "aws_eip" "elastic_ip" {
 data "template_file" "user_data" {
   template = file("templates/mc-init.tpl")
   vars = {
-    instance_hostname     = var.instance_hostname
-    minecraft_data_bucket_id = aws_s3_bucket.minecraft_data.id
-    minecraft_version_download_link     = var.minecraft_version_selector["1.17.1"]
+    instance_hostname               = var.instance_hostname
+    minecraft_data_bucket_id        = aws_s3_bucket.minecraft_data.id
+    minecraft_version_download_link = var.minecraft_version_selector["1.17.1"]
   }
 }

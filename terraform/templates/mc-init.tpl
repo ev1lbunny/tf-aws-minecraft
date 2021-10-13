@@ -3,7 +3,7 @@
 ### Setting up the Libs ###
 yum install wget awscli screen jq -y
 wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
-sudo rpm -Uvh jdk-17_linux-x64_bin.rpm 
+sudo rpm -Uvh jdk-17_linux-x64_bin.rpm
 yum upgrade -y
 
 ### Creating and swapping and setting up user dirs ###
