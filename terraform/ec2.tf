@@ -59,6 +59,6 @@ data "template_file" "user_data" {
   vars = {
     instance_hostname     = var.instance_hostname
     minecraft_data_bucket = aws_s3_bucket.minecraft_data.bucket
-    minecraft_version     = var.minecraft_version_selector["1.17.1"]
+    minecraft_version_download_link     = var.minecraft_version_selector["1.17.1"]
   }
 }
