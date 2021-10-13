@@ -1,7 +1,10 @@
 #!/bin/bash
 
-yum install java-1.8.0 wget awscli screen jq -y
+yum install wget awscli screen jq -y
 yum remove java-1.7.0-openjdk -y
+yum remove java-1.8.0-openjdk -y
+wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
+sudo rpm -Uvh jdk-17_linux-x64_bin.rpm 
 yum upgrade -y
 
 sudo hostnamectl set-hostname ${instance_hostname}
@@ -26,4 +29,4 @@ cat >eula.txt<<EULA
 eula=true
 EULA
 
-sudo java -Xmx1024M -jar server.jar nogui
+sudo java -Xmx512M -jar server.jar nogui
