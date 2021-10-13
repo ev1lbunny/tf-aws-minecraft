@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    key            = "terraform-aws/ts3_server/terraform.tfstate"
+    key            = "terraform-aws/mincraft_server/terraform.tfstate"
     dynamodb_table = "terraform-statelock"
   }
   required_version = ">= 1.0.0"

@@ -24,6 +24,8 @@ data "aws_ami" "AL2" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  owners = ["137112412989"]
 }
 
 resource "aws_instance" "ec2" {

@@ -50,14 +50,14 @@ variable "instance_volume_size" {
   default     = 8
 }
 
-variable "instance_ami_id" {
-  description = "Requested Instance Ami Image Id"
-  type        = string
-  default     = "ami-05c424d59413a2876"
-}
-
 variable "minecraft_version_selector" {
   description = "Version of Minecraft Server files to download"
   type        = map(any)
   default     = { "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar" }
+}
+
+variable "aws_s3_minecraft_bucket_name" {
+  description = "Requested Instance Ami Image Id"
+  type        = string
+  default     = "minecraft-server-world-data"
 }
