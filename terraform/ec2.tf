@@ -60,8 +60,16 @@ resource "aws_eip" "elastic_ip" {
 data "template_file" "user_data" {
   template = file("templates/mc-init.tpl")
   vars = {
-    instance_hostname               = var.instance_hostname
-    minecraft_data_bucket_id        = aws_s3_bucket.minecraft_data.id
-    minecraft_version_download_link = var.minecraft_version_selector["1.17.1"]
+    instance_hostname                = var.instance_hostname
+    minecraft_data_bucket_id         = aws_s3_bucket.minecraft_data.id
+    minecraft_world_backup_object    = aws_s3_bucket_object.world_data.id
+    minecraft_settings_backup_object = aws_s3_bucket_object.settings.id
+    minecraft_server_whitelist       = var.minecraft_server_whitelist
+    minecraft_server_rcon            = var.minecraft_server_rcon
+    minecraft_server_rcon_pass       = var.minecraft_server_rcon_pass
+    minecraft_server_max_players     = var.minecraft_server_max_players
+    minecraft_server_hardcore_mode   = var.minecraft_server_hardcore_mode
+    minecraft_server_motd            = var.minecraft_server_motd
+    minecraft_version_download_link  = var.minecraft_version_selector["1.17.1"]
   }
 }

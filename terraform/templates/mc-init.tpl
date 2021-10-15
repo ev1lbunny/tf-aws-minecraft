@@ -23,7 +23,8 @@ eula=true
 EULA
 
 echo "### Getting any world / game data from s3 bucket before starting server ###"
-aws s3 sync s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/ .
+aws s3 sync s3://${minecraft_data_bucket_id}/${minecraft_world_backup_object} .
+aws s3 sync s3://${minecraft_data_bucket_id}/${minecraft_settings_backup_object} .
 unzip minecraft-world-backup.zip -d .
 cat >server.properties<<SERVER_PROPS
 #Minecraft server properties
@@ -37,7 +38,7 @@ gamemode=survival
 server-port=25565
 allow-nether=true
 enable-command-block=false
-enable-rcon=false
+enable-rcon=${minecraft_server_rcon}
 sync-chunk-writes=true
 enable-query=false
 op-permission-level=4
@@ -45,29 +46,29 @@ prevent-proxy-connections=false
 resource-pack=
 entity-broadcast-range-percentage=100
 level-name=world
-rcon.password=
+rcon.password=${minecraft_server_rcon_pass}
 player-idle-timeout=0
-motd=Evilbunny Gaming Minecraft
+motd=${minecraft_server_motd}
 query.port=25565
 force-gamemode=false
 rate-limit=0
-hardcore=false
-white-list=false
+hardcore=${minecraft_server_hardcore_mode}
+white-list=${minecraft_server_whitelist}
 broadcast-console-to-ops=true
 pvp=true
 spawn-npcs=true
 spawn-animals=true
 snooper-enabled=true
-difficulty=easy
+difficulty=normal
 function-permission-level=2
 network-compression-threshold=256
 text-filtering-config=
 require-resource-pack=false
 spawn-monsters=true
 max-tick-time=60000
-enforce-whitelist=false
+enforce-whitelist=${minecraft_server_whitelist}
 use-native-transport=true
-max-players=1
+max-players=${minecraft_server_max_players}
 resource-pack-sha1=
 spawn-protection=16
 online-mode=true
@@ -85,8 +86,8 @@ cat >backupscript.sh<<BACKUP
 screen -S minecraft -p 0 -X stuff "save-off^M"
 screen -S minecraft -p 0 -X stuff "save-all^M"
 zip -r minecraft-world-backup.zip world
-aws s3 cp minecraft-world-backup.zip s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/
-aws s3 cp whitelist.json s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/
+aws s3 cp minecraft-world-backup.zip s3://${minecraft_data_bucket_id}/${minecraft_world_backup_object}
+aws s3 cp whitelist.json s3://${minecraft_data_bucket_id}/${minecraft_settings_backup_object}
 screen -S minecraft -p 0 -X stuff "save-on^M"
 rm -rf minecraft-world-backup.zip
 BACKUP

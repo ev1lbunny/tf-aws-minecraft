@@ -3,7 +3,7 @@ resource "random_id" "state_bucket_rand" {
 }
 
 resource "aws_s3_bucket" "minecraft_data" {
-  bucket = "${var.aws_s3_minecraft_bucket_name}-${random_id.state_bucket_rand.dec}"
+  bucket = "${var.minecraft_bucket_name}-${random_id.state_bucket_rand.dec}"
   acl    = "private"
 
   versioning {
@@ -24,9 +24,14 @@ resource "aws_s3_bucket" "minecraft_data_log_bucket" {
   acl    = "log-delivery-write"
 }
 
-resource "aws_s3_bucket_object" "world_data_folder" {
+resource "aws_s3_bucket_object" "world_data" {
   bucket = aws_s3_bucket.minecraft_data.id
-  key    = "minecraft/minecraft_server_data/"
+  key    = var.minecraft_bucket_world_directory_object
+}
+
+resource "aws_s3_bucket_object" "settings" {
+  bucket = aws_s3_bucket.minecraft_data.id
+  key    = var.minecraft_bucket_whitelist_directory_object
 }
 
 resource "aws_s3_bucket_policy" "minecraft_data_bucket_policy" {
