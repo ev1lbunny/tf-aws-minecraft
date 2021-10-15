@@ -12,7 +12,7 @@ resource "aws_key_pair" "generated_server_keypair" {
   )
 }
 
-data "aws_ami" "AL2" {
+data "aws_ami" "Al2" {
   most_recent = true
 
   filter {
@@ -29,7 +29,7 @@ data "aws_ami" "AL2" {
 }
 
 resource "aws_instance" "ec2" {
-  ami                    = data.aws_ami.AL2.id
+  ami                    = data.aws_ami.Al2.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
   key_name               = "${var.prefix_identifier}${var.key_pair_name}"

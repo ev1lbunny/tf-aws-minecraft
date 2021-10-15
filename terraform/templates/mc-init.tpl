@@ -1,14 +1,15 @@
 #!/bin/bash
 
 echo "### Setting up the Libs ###"
-yum install wget awscli screen jq -y
+yum install wget awscli screen zip unzip jq -y
 wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
 sudo rpm -Uvh jdk-17_linux-x64_bin.rpm
 yum upgrade -y
 
 echo "### Creating and swapping and setting up user dirs ###"
 sudo hostnamectl set-hostname ${instance_hostname}
-mkdir /home/minecraft && cd /home/minecraft
+mkdir /home/minecraft
+cd /home/minecraft
 
 echo "### Setting up screen session to leave open ###"
 screen -d -m -S minecraft
@@ -23,6 +24,73 @@ EULA
 
 echo "### Getting any world / game data from s3 bucket before starting server ###"
 aws s3 sync s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/ .
+unzip minecraft-world-backup.zip -d .
+cat >server.properties<<SERVER_PROPS
+#Minecraft server properties
+broadcast-rcon-to-ops=true
+view-distance=10
+enable-jmx-monitoring=false
+server-ip=
+resource-pack-prompt=
+rcon.port=25575
+gamemode=survival
+server-port=25565
+allow-nether=true
+enable-command-block=false
+enable-rcon=false
+sync-chunk-writes=true
+enable-query=false
+op-permission-level=4
+prevent-proxy-connections=false
+resource-pack=
+entity-broadcast-range-percentage=100
+level-name=world
+rcon.password=
+player-idle-timeout=0
+motd=Evilbunny Gaming Minecraft
+query.port=25565
+force-gamemode=false
+rate-limit=0
+hardcore=false
+white-list=false
+broadcast-console-to-ops=true
+pvp=true
+spawn-npcs=true
+spawn-animals=true
+snooper-enabled=true
+difficulty=easy
+function-permission-level=2
+network-compression-threshold=256
+text-filtering-config=
+require-resource-pack=false
+spawn-monsters=true
+max-tick-time=60000
+enforce-whitelist=false
+use-native-transport=true
+max-players=1
+resource-pack-sha1=
+spawn-protection=16
+online-mode=true
+enable-status=true
+allow-flight=false
+max-world-size=29999984
+SERVER_PROPS
 
 echo "### Firing off server startup command into the running screen emulation ###"
 screen -S minecraft -p 0 -X stuff "java -Xmx512M -jar server.jar nogui^M"
+
+echo "### Setting up Backup script and cron job ###"
+cat >backupscript.sh<<BACKUP
+#!/bin/bash
+screen -S minecraft -p 0 -X stuff "save-off^M"
+screen -S minecraft -p 0 -X stuff "save-all^M"
+zip -r minecraft-world-backup.zip world
+aws s3 cp minecraft-world-backup.zip s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/
+aws s3 cp whitelist.json s3://${minecraft_data_bucket_id}/minecraft/minecraft_server_data/
+screen -S minecraft -p 0 -X stuff "save-on^M"
+rm -rf minecraft-world-backup.zip
+BACKUP
+chmod a+x backupscript.sh
+echo "root" >/etc/cron.allow
+touch /var/spool/cron/root /usr/bin/crontab /var/spool/cron/root
+echo "0 0 * * * /home/minecraft/backupscript.sh" >> /var/spool/cron/root

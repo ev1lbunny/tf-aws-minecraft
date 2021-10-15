@@ -2,15 +2,6 @@ resource "random_id" "state_bucket_rand" {
   byte_length = 2
 }
 
-resource "aws_kms_key" "minecraft_bucket_encrypt_at_rest" {
-  description             = "This key is used to encrypt bucket objects"
-  deletion_window_in_days = 10
-  enable_key_rotation     = true
-  tags = {
-    Name = "Terraform Key for s3 bucket at rest encryption"
-  }
-}
-
 resource "aws_s3_bucket" "minecraft_data" {
   bucket = "${var.aws_s3_minecraft_bucket_name}-${random_id.state_bucket_rand.dec}"
   acl    = "private"
@@ -18,16 +9,6 @@ resource "aws_s3_bucket" "minecraft_data" {
   versioning {
     enabled = true
   }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.minecraft_bucket_encrypt_at_rest.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-
   logging {
     target_bucket = aws_s3_bucket.minecraft_data_log_bucket.id
     target_prefix = "log/"
@@ -41,18 +22,34 @@ resource "aws_s3_bucket" "minecraft_data" {
 resource "aws_s3_bucket" "minecraft_data_log_bucket" {
   bucket = "minecraft-server-world-data-log-bucket"
   acl    = "log-delivery-write"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.minecraft_bucket_encrypt_at_rest.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
 }
 
 resource "aws_s3_bucket_object" "world_data_folder" {
   bucket = aws_s3_bucket.minecraft_data.id
   key    = "minecraft/minecraft_server_data/"
+}
+
+resource "aws_s3_bucket_policy" "minecraft_data_bucket_policy" {
+  bucket = aws_s3_bucket.minecraft_data.id
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": ["s3:*"],
+            "Effect": "Allow",
+            "Resource": [
+                "${aws_s3_bucket.minecraft_data.arn}",
+                "${aws_s3_bucket.minecraft_data.arn}/*"
+            ],
+            "Principal": {
+                "AWS": [
+                    "${aws_iam_role.minecraft_sts_ec2_assume_role.arn}"
+                ]
+            }
+        }
+    ]
+}
+EOF
 }
