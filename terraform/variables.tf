@@ -65,13 +65,13 @@ variable "minecraft_bucket_name" {
 variable "minecraft_bucket_world_directory_object" {
   description = "Folder object in the bucket where world data backups are stored"
   type        = string
-  default     = "minecraft/minecraft_server_word_data_backups"
+  default     = "minecraft/minecraft_server_word_data_backups/"
 }
 
 variable "minecraft_bucket_whitelist_directory_object" {
   description = "Folder object in the bucket where world data backups are stored"
   type        = string
-  default     = "minecraft/minecraft_server_settings_backups"
+  default     = "minecraft/minecraft_server_settings_backups/"
 }
 
 variable "minecraft_server_whitelist" {
