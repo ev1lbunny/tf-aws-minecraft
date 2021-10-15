@@ -35,7 +35,7 @@ variable "prefix_identifier" {
 variable "instance_type" {
   description = "Requested Instance Type"
   type        = string
-  default     = "t3.micro"
+  default     = "t2.small"
 }
 
 variable "instance_hostname" {
@@ -107,5 +107,5 @@ variable "minecraft_server_hardcore_mode" {
 variable "minecraft_server_motd" {
   description = "Server Message of the Day"
   type        = string
-  default     = "Welcome to the ############ Minecraft Server"
+  default     = "Welcome to Minecraft"
 }

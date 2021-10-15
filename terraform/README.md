@@ -51,7 +51,7 @@ No modules.
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region of aws to use | `string` | `"eu-west-2"` | no |
 | <a name="input_ingress_access_ip_address"></a> [ingress\_access\_ip\_address](#input\_ingress\_access\_ip\_address) | Ip address that you will access the minecraft from. All other access will be locked. | `string` | n/a | yes |
 | <a name="input_instance_hostname"></a> [instance\_hostname](#input\_instance\_hostname) | Requested Instance Hostname | `string` | `"aws-minecraft-server"` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t3.micro"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t2.small"` | no |
 | <a name="input_instance_volume_size"></a> [instance\_volume\_size](#input\_instance\_volume\_size) | Requested Instance Volume Size | `number` | `8` | no |
 | <a name="input_key_pair_name"></a> [key\_pair\_name](#input\_key\_pair\_name) | Name to give the generated keypair that will be associated with the minecraft server ec2 instance for ssh access | `string` | `"server-keypair"` | no |
 | <a name="input_minecraft_bucket_name"></a> [minecraft\_bucket\_name](#input\_minecraft\_bucket\_name) | Name for the bucket where world data backups are stored | `string` | `"minecraft-server-world-data"` | no |
@@ -59,7 +59,7 @@ No modules.
 | <a name="input_minecraft_bucket_world_directory_object"></a> [minecraft\_bucket\_world\_directory\_object](#input\_minecraft\_bucket\_world\_directory\_object) | Folder object in the bucket where world data backups are stored | `string` | `"minecraft/minecraft_server_word_data_backups/"` | no |
 | <a name="input_minecraft_server_hardcore_mode"></a> [minecraft\_server\_hardcore\_mode](#input\_minecraft\_server\_hardcore\_mode) | Run server in permadeath mode | `string` | `"false"` | no |
 | <a name="input_minecraft_server_max_players"></a> [minecraft\_server\_max\_players](#input\_minecraft\_server\_max\_players) | Max number of players allowed on server | `number` | `10` | no |
-| <a name="input_minecraft_server_motd"></a> [minecraft\_server\_motd](#input\_minecraft\_server\_motd) | Server Message of the Day | `string` | `"Welcome to the ############ Minecraft Server"` | no |
+| <a name="input_minecraft_server_motd"></a> [minecraft\_server\_motd](#input\_minecraft\_server\_motd) | Server Message of the Day | `string` | `"Welcome to Minecraft"` | no |
 | <a name="input_minecraft_server_rcon"></a> [minecraft\_server\_rcon](#input\_minecraft\_server\_rcon) | Turn on and off the server rcon capability with true/false | `string` | `"false"` | no |
 | <a name="input_minecraft_server_rcon_pass"></a> [minecraft\_server\_rcon\_pass](#input\_minecraft\_server\_rcon\_pass) | Server Rcon Password | `string` | `"please_change_me_if_using_rcon"` | no |
 | <a name="input_minecraft_server_whitelist"></a> [minecraft\_server\_whitelist](#input\_minecraft\_server\_whitelist) | Turn on and off the server whitelist capability with true/false | `string` | `"false"` | no |
