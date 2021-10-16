@@ -1,7 +1,12 @@
 #!/bin/bash
 
+echo "### Setting up ENV Vars ###"
+echo export MCRCON_HOST="localhost" >> /etc/profile
+echo export MCRCON_PORT="25575" >> /etc/profile
+echo export MCRCON_PASS=${minecraft_server_rcon_pass} >> /etc/profile
+
 echo "### Setting up the Libs ###"
-yum install wget awscli screen zip unzip git jq -y
+yum install wget awscli screen zip unzip jq -y
 wget --no-check-certificate -c --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
 sudo rpm -Uvh jdk-17_linux-x64_bin.rpm
 yum upgrade -y
@@ -78,17 +83,17 @@ max-world-size=29999984
 SERVER_PROPS
 
 echo "### Firing off server startup command into the running screen emulation ###"
-screen -S minecraft -p 0 -X stuff "java -Xmx512M -jar server.jar nogui^M"
+screen -S minecraft -p 0 -X stuff "java -Xmx${minecraft_server_memory}M -jar server.jar nogui^M"
 
 echo "### Setting up Backup script and cron job ###"
 cat >backupscript.sh<<BACKUP
 #!/bin/bash
 cd /home/minecraft/
-mcrcon -w 1 "say Server is backing up world data. Please be patient." save-off save-all
+./mcrcon -w 1 "say Server is backing up world data. Please be patient." save-off save-all
 zip -r minecraft-world-backup.zip world
 aws s3 cp minecraft-world-backup.zip s3://${minecraft_data_bucket_id}/${minecraft_world_backup_object}
 aws s3 cp whitelist.json s3://${minecraft_data_bucket_id}/${minecraft_settings_backup_object}
-mcrcon -w 1 "say Server world data backup complete. Autosave re-enabled." save-on
+./mcrcon -w 1 "say Server world data backup complete. Autosave re-enabled." save-on
 rm -rf minecraft-world-backup.zip
 BACKUP
 chmod a+x backupscript.sh
@@ -99,11 +104,5 @@ echo "0 0 * * * /home/minecraft/backupscript.sh" >> /var/spool/cron/root
 echo "### Setup mcrcon ###"
 mkdir /home/tools
 cd /home/tools
-git clone https://github.com/Tiiffi/mcrcon.git
-cd mcrcon
-make
-sudo make install
-export MCRCON_HOST="localhost"
-export MCRCON_PORT="25575"
-export MCRCON_PASS=${minecraft_server_rcon_pass}
-mcrcon -w 5 "say Minecraft RCON Sucessfully attached."
+wget https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-linux-x86-64.tar.gz
+tar -C /home/minecraft -xvf mcrcon-0.7.1-linux-x86-64.tar.gz mcrcon-0.7.1-linux-x86-64/mcrcon --strip-components=1

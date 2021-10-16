@@ -59,6 +59,7 @@ No modules.
 | <a name="input_minecraft_bucket_world_directory_object"></a> [minecraft\_bucket\_world\_directory\_object](#input\_minecraft\_bucket\_world\_directory\_object) | Folder object in the bucket where world data backups are stored | `string` | `"minecraft/minecraft_server_word_data_backups/"` | no |
 | <a name="input_minecraft_server_hardcore_mode"></a> [minecraft\_server\_hardcore\_mode](#input\_minecraft\_server\_hardcore\_mode) | Run server in permadeath mode | `string` | `"false"` | no |
 | <a name="input_minecraft_server_max_players"></a> [minecraft\_server\_max\_players](#input\_minecraft\_server\_max\_players) | Max number of players allowed on server | `number` | `10` | no |
+| <a name="input_minecraft_server_memory"></a> [minecraft\_server\_memory](#input\_minecraft\_server\_memory) | How much Heap Memory to dedicate to the jvm (in MB) | `string` | `"512"` | no |
 | <a name="input_minecraft_server_motd"></a> [minecraft\_server\_motd](#input\_minecraft\_server\_motd) | Server Message of the Day | `string` | `"Welcome to Minecraft"` | no |
 | <a name="input_minecraft_server_rcon"></a> [minecraft\_server\_rcon](#input\_minecraft\_server\_rcon) | Turn on and off the server rcon capability with true/false | `string` | `"false"` | no |
 | <a name="input_minecraft_server_rcon_pass"></a> [minecraft\_server\_rcon\_pass](#input\_minecraft\_server\_rcon\_pass) | Server Rcon Password | `string` | `"please_change_me_if_using_rcon"` | no |

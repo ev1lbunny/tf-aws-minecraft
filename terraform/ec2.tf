@@ -61,6 +61,7 @@ data "template_file" "user_data" {
   template = file("templates/mc-init.tpl")
   vars = {
     instance_hostname                = var.instance_hostname
+    minecraft_server_memory          = var.minecraft_server_memory
     minecraft_data_bucket_id         = aws_s3_bucket.minecraft_data.id
     minecraft_world_backup_object    = aws_s3_bucket_object.world_data.id
     minecraft_settings_backup_object = aws_s3_bucket_object.settings.id

@@ -109,3 +109,9 @@ variable "minecraft_server_motd" {
   type        = string
   default     = "Welcome to Minecraft"
 }
+
+variable "minecraft_server_memory" {
+  description = "How much Heap Memory to dedicate to the jvm (in MB)"
+  type        = string
+  default     = "512"
+}
