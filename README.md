@@ -21,7 +21,7 @@ Pre-installed and configured mcrcon.
  See change log for specifics.
 
   * 0.#.# >= Pre-Alpha testing phase
-  * 0.0.1 - Baby Zombie - Pre Release
+  * [0.0.1](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - Baby Zombie - Pre Release
 
  ## Usage
 
