@@ -13,3 +13,5 @@ Dates in this file are in format of YYYY-MM-DD (2019-12-13 means 13th of Decembe
 
 * Basic TF code for deployment to aws. [@kmalkin](https://github.com/kmalkin)
 * TF code for sgs, ec2, iam all done. along with user data template. [@kmalkin](https://github.com/kmalkin)
+* Added variablisation and configuration options. [@kmalkin](https://github.com/kmalkin)
+* Created buckets for auto backup and restore [@kmalkin](https://github.com/kmalkin)
