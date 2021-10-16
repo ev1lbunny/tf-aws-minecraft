@@ -49,7 +49,7 @@ No modules.
 | <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | Additional resource tags | `map(string)` | <pre>{<br>  "Name": "Minecraft"<br>}</pre> | no |
 | <a name="input_aws_credentials_profile"></a> [aws\_credentials\_profile](#input\_aws\_credentials\_profile) | High level profile name that the terraform uses for aws access to create new role/policy/user for pihole deployment | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region of aws to use | `string` | `"eu-west-2"` | no |
-| <a name="input_ingress_access_ip_address"></a> [ingress\_access\_ip\_address](#input\_ingress\_access\_ip\_address) | Ip address that you will access the minecraft from. All other access will be locked. | `string` | n/a | yes |
+| <a name="input_ingress_access_ip_address"></a> [ingress\_access\_ip\_address](#input\_ingress\_access\_ip\_address) | Ip address that you will ssh access the minecraft server from. All other inbound ssh access will be blocked. | `string` | n/a | yes |
 | <a name="input_instance_hostname"></a> [instance\_hostname](#input\_instance\_hostname) | Requested Instance Hostname | `string` | `"aws-minecraft-server"` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t2.small"` | no |
 | <a name="input_instance_volume_size"></a> [instance\_volume\_size](#input\_instance\_volume\_size) | Requested Instance Volume Size | `number` | `8` | no |

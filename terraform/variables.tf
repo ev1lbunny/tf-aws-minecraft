@@ -10,7 +10,7 @@ variable "aws_credentials_profile" {
 }
 
 variable "ingress_access_ip_address" {
-  description = "Ip address that you will access the minecraft from. All other access will be locked."
+  description = "Ip address that you will ssh access the minecraft server from. All other inbound ssh access will be blocked."
   type        = string
 }
 
