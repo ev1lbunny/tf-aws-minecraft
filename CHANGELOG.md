@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2).
 
 Dates in this file are in format of YYYY-MM-DD (2019-12-13 means 13th of December 2019).
 
-## [[0.0.1]](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - 2021-10-10
+## [[0.0.1]](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - 2021-10-18
 
 ### Added
 
