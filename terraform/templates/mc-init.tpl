@@ -88,6 +88,9 @@ screen -S minecraft -p 0 -X stuff "java -Xmx${minecraft_server_memory}M -jar ser
 echo "### Setting up Backup script and cron job ###"
 cat >backupscript.sh<<BACKUP
 #!/bin/bash
+export MCRCON_HOST="localhost"
+export MCRCON_PORT="25575"
+export MCRCON_PASS=${minecraft_server_rcon_pass}
 cd /home/minecraft/
 ./mcrcon -w 1 "say Server is backing up world data. Please be patient." save-off save-all
 zip -r minecraft-world-backup.zip world
