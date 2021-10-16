@@ -83,6 +83,7 @@ screen -S minecraft -p 0 -X stuff "java -Xmx512M -jar server.jar nogui^M"
 echo "### Setting up Backup script and cron job ###"
 cat >backupscript.sh<<BACKUP
 #!/bin/bash
+cd /home/minecraft/
 mcrcon -w 1 "say Server is backing up world data. Please be patient." save-off save-all
 zip -r minecraft-world-backup.zip world
 aws s3 cp minecraft-world-backup.zip s3://${minecraft_data_bucket_id}/${minecraft_world_backup_object}
