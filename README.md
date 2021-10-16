@@ -41,7 +41,7 @@ Pre-installed and configured mcrcon.
 ### Server Performance to Instance Type Findings
  * Solo private server. Will run ok on t*.micro with 512M memory
  * 1-5 player private server. Will run ok on t*.small with 1024M memory
- * >5 will need to go into the realms of *.medium instances with 2048M and start incurring quite a substantial increase to cost.
+ * 5+ will need to go into the realms of *.medium instances with 2048M and start incurring quite a substantial increase to cost.
 
  NB
  * I personally wouldn't recommend (and don't intend to myself) use this on larger instance specs till i have finished coding up the spot fleet capability.
