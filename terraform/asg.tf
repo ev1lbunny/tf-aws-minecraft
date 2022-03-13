@@ -29,6 +29,7 @@ module "hennge_split_spot_on_demand_asg" {
   key_name                    = "${var.prefix_identifier}-${var.key_pair_name}"
   enable_monitoring           = false
   associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.minecraft_s3_access_profile.arn
 
   asg_name                                 = "${var.prefix_identifier}-asg"
   vpc_zone_identifier                      = var.subnet_ids

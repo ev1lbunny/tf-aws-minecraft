@@ -1,17 +1,3 @@
-resource "tls_private_key" "key_pair_config" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "aws_key_pair" "generated_server_keypair" {
-  key_name   = "${var.prefix_identifier}-${var.key_pair_name}"
-  public_key = tls_private_key.key_pair_config.public_key_openssh
-  tags = merge(
-    {},
-    var.additional_tags,
-  )
-}
-
 resource "aws_instance" "ec2" {
   count                  = var.enable_on_demand ? 1 : 0
   ami                    = data.aws_ami.al2.id
@@ -34,6 +20,7 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_eip" "elastic_ip" {
+  count    = var.enable_on_demand ? 1 : 0
   instance = aws_instance.ec2.*.id
   vpc      = true
   tags = merge(

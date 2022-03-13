@@ -1,12 +1,12 @@
 # tf-aws-minecraft
-Terraform backed Minecraft server for aws.
-Features Auto backup and restore from s3.
-Pre-installed and configured mcrcon.
-
+* Terraform backed Minecraft server for aws.
+* Features Auto backup and restore from s3.
+* Pre-installed and configured mcrcon.
+* NOW WITH spot instance setup
 
  ## Overview
-
  * This is a completely self configured self deploying minecraft server for aws cloud
+ * It has been configured to run in aws asg as 100% spot fleet by default as this is the most cost effective saving possible. However it can be swapped to on demand if you have savings plans or reserved ec2 by using the `enable_on_demand` and `enable_spot_fleet` variables.
 
  ## Prerequisites
  * A basic knowledge of terraform , how to apply and run it.
@@ -26,15 +26,14 @@ s3.tf | tfsec:ignore:aws-s3-encryption-customer-key | According to the docs mine
 s3.tf | tfsec:ignore:aws-s3-enable-bucket-logging | Again not bothereded about logging access to this bucket. Its just additional s3 costs that (for myself) are unwarrented
 asg.tf | tfsec:ignore:aws-autoscaling-enforce-http-token-imds | Upstream Module doesn't manage this. I am working on new local launch template override as well as upstream PR for this but for now if you want it to not get stopped by pre-commit tfsec checks this will need to be on ignore.
 
- ## Versions
-
+## Versions
  See change log for specifics.
 
   * 0.#.# >= Pre-Alpha testing phase
   * [0.0.1](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - Baby Zombie - Pre Release
-  * [0.0.2](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.2) - Baby Zombies - Pre Release
+  * [0.0.2](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.2) - Zombie - Pre Release /w spot fleet capability
 
- ## Usage
+## Usage
 
  ### Setup
  * Checkout the code. Enter the `backend-state` directory and run `terraform init && terraform apply`. This will create the backend remote state objects. Take note of the bucket name output.
@@ -59,10 +58,9 @@ asg.tf | tfsec:ignore:aws-autoscaling-enforce-http-token-imds | Upstream Module 
  * I personally wouldn't recommend (and don't intend to myself) use this on larger instance specs till i have finished coding up the spot fleet capability.
 
 
- ## Future features
-* Ability to use spot fleet setup / asg's
-* Ability to add/remove/manage mods
+## Future features
+ * Ability to add/remove/manage mods
 
- # !!!! DISCLAIMER !!!!
+# !!!! DISCLAIMER !!!!
 
  All code is currently designed to run within aws. All costs are down to the responsibility of the aws account owner. If you don't know/understand what this is deploying. Dont deploy it. There may be running costs involved with elastic ips/storage/keypairs that you as the aws account owner would be responsible for. I do not take any responsibility for costs incurred by consuming and running this project. Please make sure you understand the aws costings before using this project.

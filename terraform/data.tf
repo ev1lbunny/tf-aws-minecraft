@@ -3,7 +3,12 @@ data "aws_ami" "al2" {
 
   filter {
     name   = "name"
-    values = ["amzn*"]
+    values = ["Amazon Linux2*"]
+  }
+
+  filter {
+    name   = "name"
+    values = ["*Kernel*"]
   }
 
   filter {
@@ -14,8 +19,22 @@ data "aws_ami" "al2" {
   owners = ["amazon"]
 }
 
+resource "tls_private_key" "key_pair_config" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_server_keypair" {
+  key_name   = "${var.prefix_identifier}-${var.key_pair_name}"
+  public_key = tls_private_key.key_pair_config.public_key_openssh
+  tags = merge(
+    {},
+    var.additional_tags,
+  )
+}
+
 data "template_file" "user_data" {
-  template = file("templates/mc-init.tpl")
+  template = file("${path.module}/templates/mc-init.tpl")
   vars = {
     instance_hostname                = var.instance_hostname
     minecraft_server_memory          = var.minecraft_server_memory
@@ -29,12 +48,5 @@ data "template_file" "user_data" {
     minecraft_server_hardcore_mode   = var.minecraft_server_hardcore_mode
     minecraft_server_motd            = var.minecraft_server_motd
     minecraft_version_download_link  = var.minecraft_version_selector["1.18.2"]
-  }
-}
-
-data "aws_launch_template" "launch_template" {
-  filter {
-    name   = "launch-template-name"
-    values = ["${var.prefix_identifier}-server-launch-template*"]
   }
 }
