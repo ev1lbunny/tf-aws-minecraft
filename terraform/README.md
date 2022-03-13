@@ -11,14 +11,16 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.62.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_hennge_split_spot_on_demand_asg"></a> [hennge\_split\_spot\_on\_demand\_asg](#module\_hennge\_split\_spot\_on\_demand\_asg) | HENNGE/autoscaling-mixed-instances/aws | 3.2.0 |
 
 ## Resources
 
@@ -39,7 +41,7 @@ No modules.
 | [aws_security_group.security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [random_id.state_bucket_rand](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [tls_private_key.key_pair_config](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
-| [aws_ami.Al2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_ami.al2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [template_file.user_data](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
@@ -51,7 +53,7 @@ No modules.
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | Region of aws to use | `string` | `"eu-west-2"` | no |
 | <a name="input_ingress_access_ip_address"></a> [ingress\_access\_ip\_address](#input\_ingress\_access\_ip\_address) | Ip address that you will ssh access the minecraft server from. All other inbound ssh access will be blocked. | `string` | n/a | yes |
 | <a name="input_instance_hostname"></a> [instance\_hostname](#input\_instance\_hostname) | Requested Instance Hostname | `string` | `"aws-minecraft-server"` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t2.small"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Requested Instance Type | `string` | `"t3.small"` | no |
 | <a name="input_instance_volume_size"></a> [instance\_volume\_size](#input\_instance\_volume\_size) | Requested Instance Volume Size | `number` | `8` | no |
 | <a name="input_key_pair_name"></a> [key\_pair\_name](#input\_key\_pair\_name) | Name to give the generated keypair that will be associated with the minecraft server ec2 instance for ssh access | `string` | `"server-keypair"` | no |
 | <a name="input_minecraft_bucket_name"></a> [minecraft\_bucket\_name](#input\_minecraft\_bucket\_name) | Name for the bucket where world data backups are stored | `string` | `"minecraft-server-world-data"` | no |
@@ -64,8 +66,8 @@ No modules.
 | <a name="input_minecraft_server_rcon"></a> [minecraft\_server\_rcon](#input\_minecraft\_server\_rcon) | Turn on and off the server rcon capability with true/false | `string` | `"false"` | no |
 | <a name="input_minecraft_server_rcon_pass"></a> [minecraft\_server\_rcon\_pass](#input\_minecraft\_server\_rcon\_pass) | Server Rcon Password | `string` | `"please_change_me_if_using_rcon"` | no |
 | <a name="input_minecraft_server_whitelist"></a> [minecraft\_server\_whitelist](#input\_minecraft\_server\_whitelist) | Turn on and off the server whitelist capability with true/false | `string` | `"false"` | no |
-| <a name="input_minecraft_version_selector"></a> [minecraft\_version\_selector](#input\_minecraft\_version\_selector) | Version of Minecraft Server files to download | `map(any)` | <pre>{<br>  "1.17.1": "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar"<br>}</pre> | no |
-| <a name="input_prefix_identifier"></a> [prefix\_identifier](#input\_prefix\_identifier) | Prefix added to all resources in aws to differentiate between types of infra setup | `string` | `"mc-"` | no |
+| <a name="input_minecraft_version_selector"></a> [minecraft\_version\_selector](#input\_minecraft\_version\_selector) | Version of Minecraft Server files to download | `map(any)` | <pre>{<br>  "": "",<br>  "1.17.1": "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar"<br>}</pre> | no |
+| <a name="input_prefix_identifier"></a> [prefix\_identifier](#input\_prefix\_identifier) | Prefix added to all resources in aws to differentiate between types of infra setup | `string` | `"mc"` | no |
 
 ## Outputs
 

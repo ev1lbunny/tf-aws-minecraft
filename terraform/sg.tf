@@ -1,6 +1,6 @@
 resource "aws_security_group" "security_group" {
-  name        = "${var.prefix_identifier}security-group"
-  description = "Configures All rules required for ${var.prefix_identifier}server instance access and management"
+  name        = "${var.prefix_identifier}-security-group"
+  description = "Configures All rules required for ${var.prefix_identifier}-server instance access and management"
 
   ingress {
     description = "Home LAN SSH Access"

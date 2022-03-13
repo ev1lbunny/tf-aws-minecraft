@@ -29,13 +29,13 @@ variable "additional_tags" {
 variable "prefix_identifier" {
   description = "Prefix added to all resources in aws to differentiate between types of infra setup"
   type        = string
-  default     = "mc-"
+  default     = "mc"
 }
 
 variable "instance_type" {
   description = "Requested Instance Type"
   type        = string
-  default     = "t2.small"
+  default     = "t3.small"
 }
 
 variable "instance_hostname" {
@@ -53,7 +53,8 @@ variable "instance_volume_size" {
 variable "minecraft_version_selector" {
   description = "Version of Minecraft Server files to download"
   type        = map(any)
-  default     = { "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar" }
+  default = { "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar",
+  "" = "" }
 }
 
 variable "minecraft_bucket_name" {

@@ -4,7 +4,7 @@ resource "tls_private_key" "key_pair_config" {
 }
 
 resource "aws_key_pair" "generated_server_keypair" {
-  key_name   = "${var.prefix_identifier}${var.key_pair_name}"
+  key_name   = "${var.prefix_identifier}-${var.key_pair_name}"
   public_key = tls_private_key.key_pair_config.public_key_openssh
   tags = merge(
     {},
@@ -12,27 +12,11 @@ resource "aws_key_pair" "generated_server_keypair" {
   )
 }
 
-data "aws_ami" "Al2" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["amzn*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["137112412989"]
-}
-
 resource "aws_instance" "ec2" {
-  ami                    = data.aws_ami.Al2.id
+  ami                    = data.aws_ami.al2.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
-  key_name               = "${var.prefix_identifier}${var.key_pair_name}"
+  key_name               = "${var.prefix_identifier}-${var.key_pair_name}"
   root_block_device {
     volume_size = var.instance_volume_size
     tags = merge(
