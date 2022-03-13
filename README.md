@@ -31,7 +31,7 @@ asg.tf | tfsec:ignore:aws-autoscaling-enforce-http-token-imds | Upstream Module 
 
   * 0.#.# >= Pre-Alpha testing phase
   * [0.0.1](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - Baby Zombie - Pre Release
-  * [0.0.2](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.2) - Zombie - Pre Release /w spot fleet capability
+  * [0.2.0](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.2.0) - Silverfish - Pre Release /w spot fleet capability
 
 ## Usage
 
