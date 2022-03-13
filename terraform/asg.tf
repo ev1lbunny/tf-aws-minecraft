@@ -42,6 +42,6 @@ module "hennge_split_spot_on_demand_asg" {
   on_demand_percentage_above_base_capacity = var.asg_on_demand_percentage_above_base_capacity
   spot_allocation_strategy                 = var.spot_allocation_strategy
 
-  tags = [var.additional_tags]
+  tags        = [var.additional_tags]
   tags_as_map = var.additional_tags
 }
