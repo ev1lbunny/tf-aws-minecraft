@@ -66,7 +66,7 @@
 | <a name="input_minecraft_server_rcon"></a> [minecraft\_server\_rcon](#input\_minecraft\_server\_rcon) | Turn on and off the server rcon capability with true/false | `string` | `"false"` | no |
 | <a name="input_minecraft_server_rcon_pass"></a> [minecraft\_server\_rcon\_pass](#input\_minecraft\_server\_rcon\_pass) | Server Rcon Password | `string` | `"please_change_me_if_using_rcon"` | no |
 | <a name="input_minecraft_server_whitelist"></a> [minecraft\_server\_whitelist](#input\_minecraft\_server\_whitelist) | Turn on and off the server whitelist capability with true/false | `string` | `"false"` | no |
-| <a name="input_minecraft_version_selector"></a> [minecraft\_version\_selector](#input\_minecraft\_version\_selector) | Version of Minecraft Server files to download | `map(any)` | <pre>{<br>  "": "",<br>  "1.17.1": "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar"<br>}</pre> | no |
+| <a name="input_minecraft_version_selector"></a> [minecraft\_version\_selector](#input\_minecraft\_version\_selector) | Version of Minecraft Server files to download | `map(any)` | <pre>{<br>  "1.17.1": "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar",<br>  "1.18.2": "https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar"<br>}</pre> | no |
 | <a name="input_prefix_identifier"></a> [prefix\_identifier](#input\_prefix\_identifier) | Prefix added to all resources in aws to differentiate between types of infra setup | `string` | `"mc"` | no |
 
 ## Outputs

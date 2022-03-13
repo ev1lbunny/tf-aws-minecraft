@@ -1,7 +1,7 @@
-variable "aws_region" {
-  description = "Region of aws to use"
-  type        = string
-  default     = "eu-west-2"
+variable "additional_tags" {
+  description = "Additional resource tags"
+  type        = map(string)
+  default     = { Name = "Minecraft" }
 }
 
 variable "aws_credentials_profile" {
@@ -9,33 +9,27 @@ variable "aws_credentials_profile" {
   type        = string
 }
 
+variable "aws_region" {
+  description = "Region of aws to use"
+  type        = string
+  default     = "eu-west-2"
+}
+
+variable "enable_on_demand" {
+  description = "Determins if or not you want MC on on demand ec2 instance."
+  type = bool
+  default = false
+}
+
+variable "enable_spot_fleet" {
+  description = "Determins if or not you want MC to run on spot fleet"
+  type = bool
+  default = true
+}
+
 variable "ingress_access_ip_address" {
   description = "Ip address that you will ssh access the minecraft server from. All other inbound ssh access will be blocked."
   type        = string
-}
-
-variable "key_pair_name" {
-  description = "Name to give the generated keypair that will be associated with the minecraft server ec2 instance for ssh access"
-  type        = string
-  default     = "server-keypair"
-}
-
-variable "additional_tags" {
-  description = "Additional resource tags"
-  type        = map(string)
-  default     = { Name = "Minecraft" }
-}
-
-variable "prefix_identifier" {
-  description = "Prefix added to all resources in aws to differentiate between types of infra setup"
-  type        = string
-  default     = "mc"
-}
-
-variable "instance_type" {
-  description = "Requested Instance Type"
-  type        = string
-  default     = "t3.small"
 }
 
 variable "instance_hostname" {
@@ -44,17 +38,27 @@ variable "instance_hostname" {
   default     = "aws-minecraft-server"
 }
 
+variable "instance_type" {
+  description = "Requested Instance Type"
+  type        = string
+  default     = "t3.small"
+}
+
+variable "instance_types_array" {
+  description = "Requested Instance Types allows in spot fleet"
+  type        = list(map(string))
+}
+
 variable "instance_volume_size" {
   description = "Requested Instance Volume Size"
   type        = number
   default     = 8
 }
 
-variable "minecraft_version_selector" {
-  description = "Version of Minecraft Server files to download"
-  type        = map(any)
-  default = { "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar",
-  "" = "" }
+variable "key_pair_name" {
+  description = "Name to give the generated keypair that will be associated with the minecraft server ec2 instance for ssh access"
+  type        = string
+  default     = "server-keypair"
 }
 
 variable "minecraft_bucket_name" {
@@ -115,4 +119,30 @@ variable "minecraft_server_memory" {
   description = "How much Heap Memory to dedicate to the jvm (in MB)"
   type        = string
   default     = "512"
+}
+
+variable "minecraft_version_selector" {
+  description = "Version of Minecraft Server files to download"
+  type        = map(any)
+  default = {
+    "1.17.1" = "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar",
+    "1.18.2" = "https://launcher.mojang.com/v1/objects/c8f83c5655308435b3dcf03c06d9fe8740a77469/server.jar"
+  }
+}
+
+variable "prefix_identifier" {
+  description = "Prefix added to all resources in aws to differentiate between types of infra setup"
+  type        = string
+  default     = "mc"
+}
+
+variable "spot_allocation_strategy" {
+  description = "Strategy for spot allocation, either 'lowest-price' or 'capacity-optimized'. Defaults to 'capacity-optimized' for corporate longevity of spot"
+  type        = string
+  default     = "capacity-optimized"
+}
+
+variable "subnet_ids" {
+  description = "subnet ids for the asg to deploy into "
+  type        = list(string)
 }

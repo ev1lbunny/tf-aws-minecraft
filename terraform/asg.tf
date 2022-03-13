@@ -1,4 +1,5 @@
 module "hennge_split_spot_on_demand_asg" {
+  count = var.enable_spot_fleet ? 1:0
   source  = "HENNGE/autoscaling-mixed-instances/aws"
   version = "3.2.0"
 
