@@ -3,12 +3,12 @@ data "aws_ami" "al2" {
 
   filter {
     name   = "name"
-    values = ["Amazon Linux2*"]
+    values = ["amzn*"]
   }
 
   filter {
     name   = "name"
-    values = ["*Kernel*"]
+    values = ["*kernel*"]
   }
 
   filter {
