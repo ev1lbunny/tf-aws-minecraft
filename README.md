@@ -16,12 +16,23 @@ Pre-installed and configured mcrcon.
  NB
  * It is recommended that you setup/and use a remote state. As this is safer and also encrypted at rest.
 
+## Security Exceptions
+file name | exception code | reason / justification
+---|---|---
+sg.tf | tfsec:ignore:aws-vpc-no-public-ingress-sgr | Must be open or players cannot ingress traffic or connect to server
+sg.tf | tfsec:ignore:aws-vpc-no-public-egress-sgr | Must be open or the server cannot egress server traffic to connected players
+s3.tf | tfsec:ignore:aws-s3-enable-bucket-encryption| According to the docs minecraft world data never contains anything identifiable. NB. my personal aws account prohibits all public bucket access so for me wasnt worth the additional policy work to get the ec2 to be able to access encrypted buckets
+s3.tf | tfsec:ignore:aws-s3-encryption-customer-key | According to the docs minecraft world data never contains anything identifiable. NB. my personal aws account prohibits all public bucket access so for me wasnt worth flat $1 per month cost for kms key
+s3.tf | tfsec:ignore:aws-s3-enable-bucket-logging | Again not bothereded about logging access to this bucket. Its just additional s3 costs that (for myself) are unwarrented
+asg.tf | tfsec:ignore:aws-autoscaling-enforce-http-token-imds | Upstream Module doesn't manage this. I am working on new local launch template override as well as upstream PR for this but for now if you want it to not get stopped by pre-commit tfsec checks this will need to be on ignore.
+
  ## Versions
 
  See change log for specifics.
 
   * 0.#.# >= Pre-Alpha testing phase
   * [0.0.1](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.1) - Baby Zombie - Pre Release
+  * [0.0.2](https://github.com/kmalkin/tf-aws-minecraft/releases/tag/0.0.2) - Baby Zombies - Pre Release
 
  ## Usage
 

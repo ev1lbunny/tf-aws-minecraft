@@ -1,5 +1,5 @@
-aws_credentials_profile   = "profile_name"
-ingress_access_ip_address = "127.0.0.1"
+aws_credentials_profile = "profile_name"
+ingress_access_cidr     = "127.0.0.1/32"
 instance_types_array = [
   {
     instance_type     = "t2.small",

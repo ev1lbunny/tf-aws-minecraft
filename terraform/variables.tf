@@ -4,6 +4,42 @@ variable "additional_tags" {
   default     = { Name = "Minecraft" }
 }
 
+variable "asg_desired_capacity" {
+  description = "Autoscaling group desired capacity"
+  type        = number
+  default     = 1
+}
+
+variable "asg_on_demand_base_capacity" {
+  description = "Absolute minimum amount of desired capacity that must be fulfilled by on-demand instances"
+  type        = number
+  default     = 0
+}
+
+variable "asg_on_demand_percentage_above_base_capacity" {
+  description = "Percentage split between on-demand and Spot instances above the base on-demand capacity. Default will always assume you want 0% on demand above the base capacity"
+  type        = number
+  default     = 0
+}
+
+variable "asg_max_size" {
+  description = "Autoscaling group maximum size"
+  type        = number
+  default     = 1
+}
+
+variable "asg_min_size" {
+  description = "Autoscaling group minimum size"
+  type        = number
+  default     = 0
+}
+
+variable "associate_public_ip_address" {
+  description = "Associate a public ip address with the instances."
+  type        = bool
+  default     = false
+}
+
 variable "aws_credentials_profile" {
   description = "High level profile name that the terraform uses for aws access to create new role/policy/user for pihole deployment"
   type        = string
@@ -17,18 +53,18 @@ variable "aws_region" {
 
 variable "enable_on_demand" {
   description = "Determins if or not you want MC on on demand ec2 instance."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "enable_spot_fleet" {
   description = "Determins if or not you want MC to run on spot fleet"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
-variable "ingress_access_ip_address" {
-  description = "Ip address that you will ssh access the minecraft server from. All other inbound ssh access will be blocked."
+variable "ingress_access_cidr" {
+  description = "Cidr block that you will ssh access the minecraft server from. All other inbound ssh access will be blocked."
   type        = string
 }
 

@@ -1,5 +1,6 @@
+#tfsec:ignore:aws-autoscaling-enforce-http-token-imds
 module "hennge_split_spot_on_demand_asg" {
-  count = var.enable_spot_fleet ? 1:0
+  count   = var.enable_spot_fleet ? 1 : 0
   source  = "HENNGE/autoscaling-mixed-instances/aws"
   version = "3.2.0"
 
@@ -41,12 +42,6 @@ module "hennge_split_spot_on_demand_asg" {
   on_demand_percentage_above_base_capacity = var.asg_on_demand_percentage_above_base_capacity
   spot_allocation_strategy                 = var.spot_allocation_strategy
 
-  tags = [
-    merge({
-      key                 = "Backup"
-      value               = "true"
-      propagate_at_launch = true
-    }, var.additional_backup_tags),
-  ]
+  tags = [var.additional_tags]
   tags_as_map = var.additional_tags
 }
